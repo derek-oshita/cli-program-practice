@@ -1,0 +1,28 @@
+{
+  "name": "cli_program_practice",
+  "version": "1.0.0",
+  "description": "The purpose of this repository is to create a simple command line program.",
+  "main": "bin/app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/derek-oshita/cli-program-practice.git"
+  },
+  "author": "Derek Oshita",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/derek-oshita/cli-program-practice/issues"
+  },
+  "homepage": "https://github.com/derek-oshita/cli-program-practice#readme",
+  "bin": {
+    "hello": "./bin/app.js"
+  },
+  "dependencies": {
+    "boxen": "^4.0.0",
+    "chalk": "^2.4.2",
+    "nodemon": "^2.0.7",
+    "yargs": "^13.2.4"
+  }
+}
