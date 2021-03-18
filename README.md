@@ -7,9 +7,11 @@ The purpose of this repository is to create a simple command line program.
 ## Dependencies 
 
 - Node.js
-- chalk v.2.4
-- boxen v.4.0 
-- Yargs v.13.2
+- chalk v2.4
+- boxen v4.0 
+- Yargs v13.2
+- Axios v.19
+- Request
 
 ## Resources
 

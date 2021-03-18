@@ -6,6 +6,8 @@
 const chalk = require('chalk'); 
 const boxen = require('boxen'); 
 const yargs = require('yargs'); 
+const axios = require('axios'); 
+const request = require('request'); 
 
 // DATE VARIABLES ---------------------------------------------------------------------------------------------------------------------
 const today = new Date(); 
@@ -43,6 +45,26 @@ const options = yargs
     .argv; 
 
 const yargGreeting = `Hello, ${options.name}`
+
+// AXIOS FOR API ENDPOINT --------------------------------------------------------------------------------------------------------------
+// https://www.moesif.com/blog/technical/api-design/REST-API-Design-Filtering-Sorting-and-Pagination/
+// https://data.sfgov.org/Economy-and-Community/Mobile-Food-Schedule/jjew-r69b
+// https://www.youtube.com/watch?v=i4ftNgo6MtA&ab_channel=ProgrammingTree
+// axios tutorial: https://www.youtube.com/watch?v=6LyagkoRWYA&ab_channel=TraversyMedia
+
+const url = 'https://data.sfgov.org/resource/jjew-r69b.json'; 
+
+axios.get(url)
+    .then(res => {
+        // console.log(res.data.length) 
+        // => 1000
+        // console.log(res.data) for the array
+
+    })
+    .catch(err => {
+        console.log(`Error with API endpoint: ${err}`)
+    })
+
 
 
 
