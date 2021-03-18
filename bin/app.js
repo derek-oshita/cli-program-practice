@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+// tutorial: https://developer.okta.com/blog/2019/06/18/command-line-app-with-nodejs
+
 // REQUIRE MODULES --------------------------------------------------------------------------------------------------------------------
 const chalk = require('chalk'); 
 const boxen = require('boxen'); 
@@ -16,13 +18,11 @@ const mm = String(today.getMonth() + 1).padStart(2, '0');
 const yy = today.getFullYear();
 
 const todaysDate = `${mm}/${dd}/${yy}`
-
 const todaysTime = today.toLocaleTimeString(); 
 
 
-
-
 // CLI STYLING ------------------------------------------------------------------------------------------------------------------------
+// https://www.npmjs.com/package/boxen/v/4.0.0
 const greetingOptions = {
     padding: 1, 
     margin: 1, 
@@ -31,17 +31,23 @@ const greetingOptions = {
     backgroundColor: '#555555'
 }; 
 
-const dateGreeting = chalk.red.bold(todaysDate); 
-const greeting = chalk.white.bold('Welcome to Off the Grid!'); 
+const dateGreeting = chalk.white.bold(todaysDate); 
+const timeGreeting = chalk.white.bold(todaysTime)
+const greeting = chalk.white.bold('Welcome to Off The Grid!'); 
 const msgBox = boxen(greeting, greetingOptions); 
 
 // CLI YARGS (ARGUMENTS) --------------------------------------------------------------------------------------------------------------
-// const options = yargs   
-//     .usage('Usage: ')
+const options = yargs   
+    .usage('Usage: -n <name>')
+    .option('n', {alias: 'name', describe: 'Your name', type: 'string', demandOption: false})
+    .argv; 
+
+const yargGreeting = `Hello, ${options.name}`
 
 
 
 // OUTPUT
 console.log(msgBox); 
-console.log(`------ Today's Date: ${dateGreeting} ------`)
-console.log(`${todaysTime}`)
+console.log(`------ Today's Date: ${dateGreeting} at ${timeGreeting} ------`)
+// to get this to work, you run nodemon/node . -n someName otherwise it will return undefined
+// console.log(yargGreeting); 
