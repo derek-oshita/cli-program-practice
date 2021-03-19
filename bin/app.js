@@ -60,11 +60,15 @@ const getData = function () {axios.get(url)
     .then(res => {
         // res.data = []
         // OPEN TODAY
-        console.log(res.data.filter(truck => {
+        res = res.data.filter(truck => {
             return daysOfWeek[todaysNumberCode] === truck.dayofweekstr && today.getHours().toString() > truck.start24 && today.getHours().toString() < truck.end24
-            // return daysOfWeek[todaysNumberCode] === truck.dayofweekstr
+        })
+
+        console.log(res.map(truckData => {
+            return truckData.applicant + 'at: ' + truckData.location
         }))
     })
+
     .catch(err => {
         console.log(`Error with API endpoint: ${err}`)
     })
@@ -74,7 +78,7 @@ const getData = function () {axios.get(url)
 
 // OUTPUT
 console.log(msgBox); 
-console.log(`------ Today's Date: ${dateGreeting} at ${timeGreeting} ------`)
+console.log(`------ Today's Date: ${dateGreeting} at ${timeGreeting} ------`); 
 
 // TRUCK DATA
 console.log(getData())
