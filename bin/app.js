@@ -13,7 +13,7 @@ const today = new Date();
 const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 
 // date number value according to the day of the month
-const todaysDayOfWeek = today.getDay(); 
+const todaysNumberCode = today.getDay(); 
 
 const dd = String(today.getDate()).padStart(2, '0'); 
 // month number value
@@ -61,9 +61,9 @@ const getData = function () {axios.get(url)
         // res.data = []
         // OPEN TODAY
         console.log(res.data.filter(truck => {
-            return daysOfWeek[todaysDayOfWeek] === truck.dayofweekstr; 
+            return daysOfWeek[todaysNumberCode] === truck.dayofweekstr && today.getHours().toString() > truck.start24 && today.getHours().toString() < truck.end24
+            // return daysOfWeek[todaysNumberCode] === truck.dayofweekstr
         }))
-
     })
     .catch(err => {
         console.log(`Error with API endpoint: ${err}`)
@@ -75,7 +75,10 @@ const getData = function () {axios.get(url)
 // OUTPUT
 console.log(msgBox); 
 console.log(`------ Today's Date: ${dateGreeting} at ${timeGreeting} ------`)
+
+// TRUCK DATA
 console.log(getData())
-console.log(dd)
+// console.log(today.getHours())
+
 // to get this to work, you run nodemon/node . -n someName otherwise it will return undefined
 // console.log(yargGreeting); 
