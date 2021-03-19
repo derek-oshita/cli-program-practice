@@ -10,10 +10,13 @@ const axios = require('axios');
 
 // DATE VARIABLES ---------------------------------------------------------------------------------------------------------------------
 const today = new Date(); 
+const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 
-// padStart will add the 0's until we reach the length passed as first argument... 
+// date number value according to the day of the month
+const todaysDayOfWeek = today.getDay(); 
+
 const dd = String(today.getDate()).padStart(2, '0'); 
-// months in timestamps are zero-based, so we add 1 to get the correct number value of today's month. 
+// month number value
 const mm = String(today.getMonth() + 1).padStart(2, '0'); 
 // get full year
 const yy = today.getFullYear();
@@ -56,8 +59,9 @@ const url = 'https://data.sfgov.org/resource/jjew-r69b.json';
 const getData = function () {axios.get(url)
     .then(res => {
         // res.data = []
+        // OPEN TODAY
         console.log(res.data.filter(truck => {
-            return truck.locationid === "1509789"
+            return daysOfWeek[todaysDayOfWeek] === truck.dayofweekstr; 
         }))
 
     })
@@ -72,6 +76,6 @@ const getData = function () {axios.get(url)
 console.log(msgBox); 
 console.log(`------ Today's Date: ${dateGreeting} at ${timeGreeting} ------`)
 console.log(getData())
-// console.log(typeof mm)
+console.log(dd)
 // to get this to work, you run nodemon/node . -n someName otherwise it will return undefined
 // console.log(yargGreeting); 
