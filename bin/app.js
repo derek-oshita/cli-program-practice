@@ -7,7 +7,6 @@ const chalk = require('chalk');
 const boxen = require('boxen'); 
 const yargs = require('yargs'); 
 const axios = require('axios'); 
-const request = require('request'); 
 
 // DATE VARIABLES ---------------------------------------------------------------------------------------------------------------------
 const today = new Date(); 
@@ -54,22 +53,25 @@ const yargGreeting = `Hello, ${options.name}`
 
 const url = 'https://data.sfgov.org/resource/jjew-r69b.json'; 
 
-axios.get(url)
+const getData = function () {axios.get(url)
     .then(res => {
-        // console.log(res.data.length) 
-        // => 1000
-        // console.log(res.data) for the array
+        // res.data = []
+        console.log(res.data.filter(truck => {
+            return truck.locationid === "1509789"
+        }))
 
     })
     .catch(err => {
         console.log(`Error with API endpoint: ${err}`)
     })
-
+}
 
 
 
 // OUTPUT
 console.log(msgBox); 
 console.log(`------ Today's Date: ${dateGreeting} at ${timeGreeting} ------`)
+console.log(getData())
+// console.log(typeof mm)
 // to get this to work, you run nodemon/node . -n someName otherwise it will return undefined
 // console.log(yargGreeting); 
