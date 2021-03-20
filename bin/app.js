@@ -64,8 +64,11 @@ const getData = function () {axios.get(url)
             return daysOfWeek[todaysNumberCode] === truck.dayofweekstr && today.getHours().toString() > truck.start24 && today.getHours().toString() < truck.end24
         })
 
+        res = res.sort((a,b) => a.applicant > b.applicant ? 1 : -1)
+
+
         console.log(res.map(truckData => {
-            return truckData.applicant + 'at: ' + truckData.location
+            return truckData.applicant + ' ---> ' + truckData.location
         }))
     })
 
