@@ -54,14 +54,24 @@ const yargGreeting = `Hello, ${options.name}`
 // https://www.youtube.com/watch?v=i4ftNgo6MtA&ab_channel=ProgrammingTree
 // axios tutorial: https://www.youtube.com/watch?v=6LyagkoRWYA&ab_channel=TraversyMedia
 
-const url = 'https://data.sfgov.org/resource/jjew-r69b.json'; 
+// PAGINATION
+// http://sangsoonam.github.io/2017/05/02/pagination-with-json.html
+// https://dev.socrata.com/foundry/data.sfgov.org/jjew-r69b
 
-const getData = function () {axios.get(url)
+// returns length 92
+const url = `https://data.sfgov.org/resource/jjew-r69b.json?dayorder=${todaysNumberCode}`; 
+// const url = `https://data.sfgov.org/resource/jjew-r69b.json`
+
+const getData = function () {
+    axios.get(url)
     .then(res => {
         // res.data = []
         // OPEN TODAY
         res = res.data.filter(truck => {
-            return daysOfWeek[todaysNumberCode] === truck.dayofweekstr && today.getHours().toString() > truck.start24 && today.getHours().toString() < truck.end24
+            // returns 38
+            // return daysOfWeek[todaysNumberCode] === truck.dayofweekstr 
+            return today.getHours().toString() > truck.start24 
+            && today.getHours().toString() < truck.end24
         })
 
         // SORT BY APPLICANT NAME
@@ -71,6 +81,8 @@ const getData = function () {axios.get(url)
         console.log(res.map(truckData => {
             return truckData.applicant + ' ---> ' + truckData.location
         }))
+
+        console.log(res.length)
     })
 
     .catch(err => {
@@ -85,8 +97,8 @@ console.log(msgBox);
 console.log(`------ Today's Date: ${dateGreeting} at ${timeGreeting} ------`); 
 
 // TRUCK DATA
-console.log(getData())
-// console.log(today.getHours())
+getData(); 
+console.log(todaysNumberCode)
 
 // to get this to work, you run nodemon/node . -n someName otherwise it will return undefined
 // console.log(yargGreeting); 
