@@ -58,22 +58,16 @@ const yargGreeting = `Hello, ${options.name}`
 // http://sangsoonam.github.io/2017/05/02/pagination-with-json.html
 // https://dev.socrata.com/foundry/data.sfgov.org/jjew-r69b
 
-// returns length 92
-const url = `https://data.sfgov.org/resource/jjew-r69b.json?dayorder=${todaysNumberCode}`; 
-// const url = `https://data.sfgov.org/resource/jjew-r69b.json`
+const url = `https://data.sfgov.org/resource/jjew-r69b.json?$limit=10&dayorder=${todaysNumberCode}`; 
 
 const getData = function () {
     axios.get(url)
     .then(res => {
-        // res.data = []
         // OPEN TODAY
         res = res.data.filter(truck => {
-            // returns 38
-            // return daysOfWeek[todaysNumberCode] === truck.dayofweekstr 
             return today.getHours().toString() > truck.start24 
             && today.getHours().toString() < truck.end24
         })
-
         // SORT BY APPLICANT NAME
         res.sort((a,b) => a.applicant > b.applicant ? 1 : -1)
 
@@ -81,8 +75,6 @@ const getData = function () {
         console.log(res.map(truckData => {
             return truckData.applicant + ' ---> ' + truckData.location
         }))
-
-        console.log(res.length)
     })
 
     .catch(err => {
@@ -97,8 +89,11 @@ console.log(msgBox);
 console.log(`------ Today's Date: ${dateGreeting} at ${timeGreeting} ------`); 
 
 // TRUCK DATA
-getData(); 
 console.log(todaysNumberCode)
+getData(); 
+console.log(today.getHours().toString())
 
 // to get this to work, you run nodemon/node . -n someName otherwise it will return undefined
 // console.log(yargGreeting); 
+
+
