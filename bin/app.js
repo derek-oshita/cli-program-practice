@@ -37,7 +37,7 @@ const greetingOptions = {
 
 const dateGreeting = chalk.white.bold(todaysDate); 
 const timeGreeting = chalk.white.bold(todaysTime)
-const greeting = chalk.white.bold('Welcome to Off The Grid!'); 
+const greeting = chalk.white.bold('Welcome to Off The Grid, CLI!'); 
 const msgBox = boxen(greeting, greetingOptions); 
 
 // CLI YARGS (ARGUMENTS) --------------------------------------------------------------------------------------------------------------
@@ -58,12 +58,20 @@ const yargGreeting = `Hello, ${options.name}`
 // http://sangsoonam.github.io/2017/05/02/pagination-with-json.html
 // https://dev.socrata.com/foundry/data.sfgov.org/jjew-r69b
 
-const url = `https://data.sfgov.org/resource/jjew-r69b.json?$limit=10&dayorder=${todaysNumberCode}`; 
 
-const getData = function () {
+// ALL TODAY 
+const url = `https://data.sfgov.org/resource/jjew-r69b.json?dayorder=${todaysNumberCode}`; 
+
+// ALL LIMIT 10
+// const url = `https://data.sfgov.org/resource/jjew-r69b.json?$limit=10&dayorder=${todaysNumberCode}`; 
+
+// ALL LIMIT 10 OFFSET 10
+// const url = `https://data.sfgov.org/resource/jjew-r69b.json?$limit=10&$offset=10&dayorder=${todaysNumberCode}`; 
+
+const getData = function (pageNumber) {
     axios.get(url)
     .then(res => {
-        // OPEN TODAY
+        // FILTER FOR OPEN TODAY AT CURRENT TIME
         res = res.data.filter(truck => {
             return today.getHours().toString() > truck.start24 
             && today.getHours().toString() < truck.end24
@@ -71,12 +79,32 @@ const getData = function () {
         // SORT BY APPLICANT NAME
         res.sort((a,b) => a.applicant > b.applicant ? 1 : -1)
 
-        // MAP AND RETURN THE APPLICANT NAME AND TRUCK LOCATION
-        console.log(res.map(truckData => {
-            return truckData.applicant + ' ---> ' + truckData.location
-        }))
-    })
+        // MAP THROUGH RES ARRAY AND RETURN ONLY APPLICANT NAME AND TRUCK LOCATION
+        res = res.map(truck => {
+            return truck.applicant + ' ---> ' + truck.location
+        })
 
+        // SHOW TOTAL PAGES
+        const totalPages = Math.ceil(res.length / 10); 
+
+
+
+        // console.log(res.slice(0, pageNumber)) 
+
+        // IF NO PAGE NUMBER IS PROVIDED, SEND THE FIRST 10
+        if (!pageNumber || pageNumber === 1 || pageNumber < 1) {
+            console.log(res.slice(0, 10))
+        } else if (pageNumber > totalPages) {
+            console.log('Nothing to see here!')
+        } else {
+            const resultsArr = res.slice((pageNumber * 10) - 10, (pageNumber * 10)); 
+            console.log(resultsArr.map(truck => truck))
+        }
+
+
+        console.log(`${pageNumber > totalPages ? `There are only ${totalPages} total pages..` : `Page: ${pageNumber} / ${totalPages}`}`)
+        console.log('Total Food Trucks: ', res.length)
+    })
     .catch(err => {
         console.log(`Error with API endpoint: ${err}`)
     })
@@ -84,14 +112,17 @@ const getData = function () {
 
 
 
+
+
 // OUTPUT
 console.log(msgBox); 
 console.log(`------ Today's Date: ${dateGreeting} at ${timeGreeting} ------`); 
+console.log('----------------------------------------------------')
 
 // TRUCK DATA
-console.log(todaysNumberCode)
-getData(); 
-console.log(today.getHours().toString())
+getData(7); 
+
+
 
 // to get this to work, you run nodemon/node . -n someName otherwise it will return undefined
 // console.log(yargGreeting); 
