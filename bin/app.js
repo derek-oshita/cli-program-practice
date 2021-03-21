@@ -76,6 +76,7 @@ const getData = function (pageNumber) {
             return today.getHours().toString() > truck.start24 
             && today.getHours().toString() < truck.end24
         })
+
         // SORT BY APPLICANT NAME
         res.sort((a,b) => a.applicant > b.applicant ? 1 : -1)
 
@@ -88,11 +89,8 @@ const getData = function (pageNumber) {
         const totalPages = Math.ceil(res.length / 10); 
 
 
-
-        // console.log(res.slice(0, pageNumber)) 
-
         // IF NO PAGE NUMBER IS PROVIDED, SEND THE FIRST 10
-        if (!pageNumber || pageNumber === 1 || pageNumber < 1) {
+        if (!pageNumber || pageNumber <= 1) {
             console.log(res.slice(0, 10))
         } else if (pageNumber > totalPages) {
             console.log('Nothing to see here!')
@@ -102,7 +100,7 @@ const getData = function (pageNumber) {
         }
 
 
-        console.log(`${pageNumber > totalPages ? `There are only ${totalPages} total pages..` : `Page: ${pageNumber} / ${totalPages}`}`)
+        console.log(`${pageNumber > totalPages ? `There are only ${totalPages} total pages..` : `Page: ${pageNumber || 1} / ${totalPages}`}`)
         console.log('Total Food Trucks: ', res.length)
     })
     .catch(err => {
@@ -116,11 +114,12 @@ const getData = function (pageNumber) {
 
 // OUTPUT
 console.log(msgBox); 
-console.log(`------ Today's Date: ${dateGreeting} at ${timeGreeting} ------`); 
+console.log('----------------------------------------------------')
+console.log(`||---- Today's Date: ${dateGreeting} at ${timeGreeting} ----||`); 
 console.log('----------------------------------------------------')
 
 // TRUCK DATA
-getData(7); 
+getData(2); 
 
 
 
