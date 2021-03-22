@@ -41,23 +41,25 @@ const greeting = chalk.white.bold('Welcome to Off The Grid, CLI!');
 const msgBox = boxen(greeting, greetingOptions); 
 
 // CLI YARGS (ARGUMENTS) --------------------------------------------------------------------------------------------------------------
-const options = yargs   
-    .usage('Usage: -n <name>')
-    .option('n', {alias: 'name', describe: 'Your name', type: 'string', demandOption: false})
+// tutorial: https://dev.to/christopherkade/building-a-cli-with-yargs-ip8
+
+// const options = yargs   
+//     .usage('Usage: -n <name>')
+//     .option('n', {alias: 'name', describe: 'Your name', type: 'string', demandOption: false})
+//     .argv; 
+
+// const yargGreeting = `Hello, ${options.name}`
+
+// to get this to work, you run nodemon/node . -n someName otherwise it will return undefined
+// console.log(yargGreeting); 
+
+const options = yargs
+    .usage('Usage: -p <page>')
+    .option('p', {alias: 'page', describe: 'Page number', type:'number', demandOption: false})
     .argv; 
 
-const yargGreeting = `Hello, ${options.name}`
 
 // AXIOS FOR API ENDPOINT --------------------------------------------------------------------------------------------------------------
-// https://www.moesif.com/blog/technical/api-design/REST-API-Design-Filtering-Sorting-and-Pagination/
-// https://data.sfgov.org/Economy-and-Community/Mobile-Food-Schedule/jjew-r69b
-// https://www.youtube.com/watch?v=i4ftNgo6MtA&ab_channel=ProgrammingTree
-// axios tutorial: https://www.youtube.com/watch?v=6LyagkoRWYA&ab_channel=TraversyMedia
-
-// PAGINATION
-// http://sangsoonam.github.io/2017/05/02/pagination-with-json.html
-// https://dev.socrata.com/foundry/data.sfgov.org/jjew-r69b
-
 
 // ALL TODAY 
 const url = `https://data.sfgov.org/resource/jjew-r69b.json?dayorder=${todaysNumberCode}`; 
@@ -119,11 +121,11 @@ console.log(`||---- Today's Date: ${dateGreeting} at ${timeGreeting} ----||`);
 console.log('----------------------------------------------------')
 
 // TRUCK DATA
-getData(2); 
+// getData(); 
+getData(options.page)
 
 
 
-// to get this to work, you run nodemon/node . -n someName otherwise it will return undefined
-// console.log(yargGreeting); 
+
 
 
