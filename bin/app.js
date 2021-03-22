@@ -23,7 +23,7 @@ const yy = today.getFullYear();
 // interpolate the variables to format
 const todaysDate = `${mm}/${dd}/${yy}`
 const todaysTime = today.toLocaleTimeString(); 
-const todaysTime24Hours = today.getHours().toString()
+const todaysTime24Hours = today.getHours().toString() + ':' + today.getMinutes().toString(); 
 
 
 // CLI STYLING ------------------------------------------------------------------------------------------------------------------------
@@ -65,7 +65,7 @@ const getData = function (pageNumber) {
         // SORT BY APPLICANT NAME
         res.sort((a,b) => a.applicant.toLowerCase() > b.applicant.toLowerCase() ? 1 : -1)
 
-        // MAP THROUGH RES ARRAY AND RETURN ONLY APPLICANT NAME AND TRUCK LOCATION
+        // MAP THROUGH RES ARRAY AND RETURN NEW ARRAY WHERE ONLY APPLICANT NAME AND TRUCK LOCATION ARE PRINTED
         res = res.map(truck => {
             return truck.applicant + ' ---> ' + truck.location
         })
@@ -79,7 +79,7 @@ const getData = function (pageNumber) {
         // IF THE USER PASSES A NUMBER GREATER THAN TOTAL AMOUNT OF PAGES, LOG ERROR MESSAGE
         } else if (pageNumber > totalPages || typeof pageNumber !== 'number') {
             console.error('Nothing to see here!')
-        // IF THE DATA IS VALID
+        // IF THE DATA IS VALID, CREATE A NEW ARRAY BASED ON PAGE NUMBER THAN MAP THROUGH IT
         } else {
             const resultsArr = res.slice((pageNumber * 10) - 10, (pageNumber * 10)); 
             console.log(resultsArr.map(truck => truck))
@@ -98,7 +98,7 @@ const getData = function (pageNumber) {
 
 // OUTPUT ------------------------------------------------------------------------------------------------------------------------------
 
-// WELCOME 
+// WELCOME MESSAGE
 console.log(welcome); 
 
 // DATE TABLE
