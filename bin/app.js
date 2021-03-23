@@ -70,7 +70,7 @@ const getData = function (pageNumber) {
             return truck.applicant + ' ---> ' + truck.location
         })
 
-        // SHOW TOTAL PAGES
+        // CREATE PAGES
         const totalPages = Math.ceil(res.length / 10); 
 
         // IF NO PAGE NUMBER IS PROVIDED, SEND THE FIRST 10
