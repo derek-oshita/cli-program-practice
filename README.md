@@ -9,7 +9,10 @@ The purpose of this project is to create a simple command line program that retu
 - boxen v4.0 
 - Yargs v13.2
 - Axios v.19
-- Nodemon (optional)
+
+Optional: 
+- Nodemon (auto-reloadng for dev purposes)
+- Jest (unit-testing)
 
 ## Installation
 
