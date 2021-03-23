@@ -47,7 +47,7 @@ After you have installed all of the dependencies, there are only two commands ne
 2. $ node app.js -p (page number)
 
 - Replace (page number) with any number between 1 and the total number of pages. 
-- This will execute the program and return thelist of food trucks features on that page. 
+- This will execute the program and return the list of food trucks featured on that page. 
 
 ## Resources
 Tutorial: https://developer.okta.com/blog/2019/06/18/command-line-app-with-nodejs
