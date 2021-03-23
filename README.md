@@ -44,7 +44,7 @@ After you have installed all of the dependencies, there are only two commands ne
 - You will see the total amount of pages beneath the list of food trucks. 
 - To change pages, please see step 2. 
 
-2. node app.js -p (page number)
+2. $ node app.js -p (page number)
 
 - Replace (page number) with any number between 1 and the total number of pages. 
 - This will execute the program and return thelist of food trucks features on that page. 
